@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>Moj_appka</Name>
+		<Assembly>OfficeCreator\OfficeCreator.dll</Assembly>
+		<AddInId>{8DE9B94F-E9C5-4C3B-A6CE-423CADE1EB4F}</AddInId>
+		<FullClassName>OfficeCreator.Ribbon</FullClassName>
+		<VendorId>ADSK</VendorId>
+		<VendorDescription>Autodesk, www.autodesk.com</VendorDescription>
+	</AddIn>
+</RevitAddIns>
