@@ -9,19 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autodesk.Revit.Sdk.Refs.2025" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
     </Reference>
-    <Reference Include="RevitUIAPI">
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitUIAPI.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;%25AppData%25\Autodesk\Revit\Addins\2025\SzkolenieAPI&quot; mkdir &quot;%25AppData%25\Autodesk\Revit\Addins\2025\OfficeCreator&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)*.addin&quot; &quot;%25AppData%25\Autodesk\Revit\Addins\2025&quot; /Y /I&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot; &quot;%25AppData%25\Autodesk\Revit\Addins\2025\OfficeCreator&quot; /Y /I" />
+    <Exec Command="if not exist &quot;%25AppData%25\Autodesk\Revit\Addins\2025\OfficeCreator&quot; mkdir &quot;%25AppData%25\Autodesk\Revit\Addins\2025\OfficeCreator&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)*.addin&quot; &quot;%25AppData%25\Autodesk\Revit\Addins\2025&quot; /Y /I&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot; &quot;%25AppData%25\Autodesk\Revit\Addins\2025\OfficeCreator&quot; /Y /I" />
   </Target>
 
 </Project>
