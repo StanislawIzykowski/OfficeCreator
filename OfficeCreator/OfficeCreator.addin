@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <RevitAddIns>
+
 	<AddIn Type="Application">
 		<Name>Moj_appka</Name>
 		<Assembly>OfficeCreator\OfficeCreator.dll</Assembly>
@@ -8,4 +9,13 @@
 		<VendorId>ADSK</VendorId>
 		<VendorDescription>Autodesk, www.autodesk.com</VendorDescription>
 	</AddIn>
+
+	<AddIn Type="Command">
+		<Name>WindowInitialization</Name>
+		<Assembly>OfficeCreator\OfficeCreator.dll</Assembly>
+		<FullClassName>OfficeCreator.WindowInitialization</FullClassName>
+		<AddInId>{BC6DA027-744B-41FC-858A-3ECB7404B213}</AddInId>
+		<VendorId>ADSK</VendorId>
+	</AddIn>
+
 </RevitAddIns>

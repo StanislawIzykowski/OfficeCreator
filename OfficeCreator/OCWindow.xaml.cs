@@ -20,8 +20,10 @@ namespace OfficeCreator
     public partial class OCWindow : Window
     {
         public OCWindow()
-        {
+        {   
             InitializeComponent();
+            //adding data contex, pulling info from where
+            DataContext = new OfficeCreator.ViewModel.ViewModel();
         }
     }
 }

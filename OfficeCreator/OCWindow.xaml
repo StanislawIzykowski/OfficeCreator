@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
     <Grid>
-        
+        <Button
+            Width="50"
+            Content="Osie"
+            Command="{Binding CreateGridCommand }" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
+            />
     </Grid>
 </Window>
