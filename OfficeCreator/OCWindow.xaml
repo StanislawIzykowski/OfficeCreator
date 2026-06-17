@@ -5,12 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OfficeCreator"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
-    <Grid>
-        <Button
+        Title="Window1" Height="450" Width="850">
+	<Grid>
+		<Button
             Width="50"
             Content="Osie"
-            Command="{Binding CreateGridCommand }" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
+            Command="{Binding CreateGridsCommand }" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
             />
-    </Grid>
+		<TextBox Name="NumberTextBox"
+				 
+				 PreviewTextInput="NumberValidationTextBox" 
+				 Margin="332,156,339,0" 
+				 TextWrapping="Wrap" 
+				 Text="" 
+				 VerticalAlignment="Top" 
+				 TextChanged="NumberTextBox_TextChanged"
+				 />
+	</Grid>
 </Window>

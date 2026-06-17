@@ -30,7 +30,7 @@ namespace OfficeCreator
             //stworzenie ribbona
             RibbonPanel panel1 = application.CreateRibbonPanel(tabName1, "Guzik");
             //stworzenie guzika
-            PushButtonData button = new PushButtonData("NAME", "TEXT", assemblyPath, "OfficeCreator.WindowInitialization");
+            PushButtonData button = new PushButtonData("NAME", "TEXT", assemblyPath, "OfficeCreator.Commands.OpenWindowCommand");
             //dodanie buttona do panelu
             panel1.AddItem(button);
 

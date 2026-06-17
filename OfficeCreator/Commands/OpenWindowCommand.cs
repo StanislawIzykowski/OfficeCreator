@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OfficeCreator
+namespace OfficeCreator.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    public class WindowInitialization : IExternalCommand
+    public class OpenWindowCommand : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {

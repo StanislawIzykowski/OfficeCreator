@@ -27,6 +27,12 @@ namespace OfficeCreator.ViewModel
     }
     public class ViewModel : ViewModelBase
     {
+        private float _moduleX = 6;
+
+        public float ModuleX
+        {
+            get => _moduleX; set { _moduleX = value; OnPropertyChanged(nameof(ModuleX)); }
+        }
         //private string _globalStatus = "default";
 
         //public string GlobalStatus
@@ -48,24 +54,21 @@ namespace OfficeCreator.ViewModel
         //    }
         //}
 
-        public ICommand CreateGridCommand
+        public ICommand CreateGridsCommand
         {
             get;
             
         }
 
-
         public void CreateGrid(object arg)
         {
-            //create grid
-            
+            CreateGridsCommand.Execute(arg);            
             OnPropertyChanged();
-            ;
         }
 
         public ViewModel()
         {
-            CreateGridCommand = new RelayCommand(CreateGrid);
+            CreateGridsCommand = new RelayCommand(CreateGrid);
         }
 
         public class RelayCommand : ICommand

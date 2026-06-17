@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace OfficeCreator
 {
@@ -24,6 +25,17 @@ namespace OfficeCreator
             InitializeComponent();
             //adding data contex, pulling info from where
             DataContext = new OfficeCreator.ViewModel.ViewModel();
+        }
+        
+        //mozliwosc przyjmowania tylko cyfr
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !int.TryParse(e.Text, out _);
+        }
+
+        private void NumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
