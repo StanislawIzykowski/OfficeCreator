@@ -10,22 +10,7 @@ using System.Windows.Media;
 
 namespace OfficeCreator.ViewModel
 {
-    public class CommandObcject : ViewModelBase
-    {
-        private int _buttonId;
-        public int ButtonId
-        {
-            get => _buttonId;
-            set { _buttonId = value; OnPropertyChanged(nameof(ButtonId)); }
-        }
-
-        public CommandObcject(int buttonId)
-        {
-            ButtonId = buttonId;         
-        }
-
-    }
-    public class ViewModel : ViewModelBase
+       public class MainViewModel : ViewModelBase
     {
         private float _moduleX = 6;
 
@@ -33,42 +18,25 @@ namespace OfficeCreator.ViewModel
         {
             get => _moduleX; set { _moduleX = value; OnPropertyChanged(nameof(ModuleX)); }
         }
-        //private string _globalStatus = "default";
 
-        //public string GlobalStatus
-        //{
-        //    get => _globalStatus;
-        //    set { _globalStatus = value; OnPropertyChanged(nameof(GlobalStatus)); }
-        //}
-
-
-        //public ObservableCollection<SuperButtonObcject> _startFiniszCollection = new ObservableCollection<SuperButtonObcject>();
-
-        //public ObservableCollection<SuperButtonObcject> StartFiniszCollection
-        //{
-        //    get { return _startFiniszCollection; }
-        //    set
-        //    {
-        //        _startFiniszCollection = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        public ICommand CreateGridsCommand
+        private int _value;
+        public int Value
         {
-            get;
-            
+            get => _value;
+            set { _value = value; OnPropertyChanged(nameof(Value)); }
         }
 
-        public void CreateGrid(object arg)
-        {
-            CreateGridsCommand.Execute(arg);            
-            OnPropertyChanged();
-        }
+        //Vm doseant connect to View 
+        //creating event to say i want to clsoe this window
+        public event Action RequestClose;
+        public ICommand GenerateCommand { get; }
 
-        public ViewModel()
+        public void OnGenerate(object arg) => RequestClose?.Invoke();
+
+
+        public MainViewModel()
         {
-            CreateGridsCommand = new RelayCommand(CreateGrid);
+            GenerateCommand = new RelayCommand(OnGenerate);
         }
 
         public class RelayCommand : ICommand
@@ -100,3 +68,23 @@ namespace OfficeCreator.ViewModel
         }
     }
 }
+//private string _globalStatus = "default";
+
+//public string GlobalStatus
+//{
+//    get => _globalStatus;
+//    set { _globalStatus = value; OnPropertyChanged(nameof(GlobalStatus)); }
+//}
+
+
+//public ObservableCollection<SuperButtonObcject> _startFiniszCollection = new ObservableCollection<SuperButtonObcject>();
+
+//public ObservableCollection<SuperButtonObcject> StartFiniszCollection
+//{
+//    get { return _startFiniszCollection; }
+//    set
+//    {
+//        _startFiniszCollection = value;
+//        OnPropertyChanged();
+//    }
+//}

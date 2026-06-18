@@ -24,7 +24,7 @@ namespace OfficeCreator
         {   
             InitializeComponent();
             //adding data contex, pulling info from where
-            DataContext = new OfficeCreator.ViewModel.ViewModel();
+            DataContext = new OfficeCreator.ViewModel.MainViewModel();
         }
         
         //mozliwosc przyjmowania tylko cyfr

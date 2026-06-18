@@ -1,22 +1,24 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using OfficeCreator.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace OfficeCreator.Commands
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class CreateGridsCommand : IExternalCommand
+    public class CreateGrids(Document doc, MainViewModel view)
     {
-        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        public void Create(Document doc, ExternalCommandData commandData)
         {
             UIApplication uiapp = commandData.Application;
-            Document doc = uiapp.ActiveUIDocument.Document;
+                
 
             OCWindow oCWindow = new OCWindow();
 
@@ -60,7 +62,7 @@ namespace OfficeCreator.Commands
             FamilySymbol symbol = new FilteredElementCollector(doc)
             .OfClass(typeof(FamilySymbol))
             .OfCategory(BuiltInCategory.OST_Columns) // architektoniczna
-            // .OfCategory(BuiltInCategory.OST_StructuralColumns) // konstrukcyjna
+                                                        // .OfCategory(BuiltInCategory.OST_StructuralColumns) // konstrukcyjna
             .Cast<FamilySymbol>()
             .FirstOrDefault();
 
@@ -68,26 +70,11 @@ namespace OfficeCreator.Commands
             .OfClass(typeof(Level))
             .Cast<Level>()
             .FirstOrDefault();
-
-            using (Transaction t = new Transaction(doc))
+            // UWAGA: ExternalEvent zawsze wymaga Transaction!
+            using (Transaction t = new Transaction(doc, "Automatyzacja: Osie"))
             {
-                t.Start("Starting transaction");
+                t.Start();
 
-                //Creating grid
-
-                for (int i = 0; i < 10; i++)
-                {
-                    Line gridLineX = Line.CreateBound(points[i][0], points[i][points.Count - 1]);
-                    Line gridLineY = Line.CreateBound(points[0][i], points[points.Count - 1][i]);
-                    Grid.Create(doc, gridLineX);
-                    Grid.Create(doc, gridLineY);
-                }
-
-                t.Commit();
-            }
-
-            using (Transaction t = new Transaction(doc))
-            {
                 t.Start("Starting transaction");
 
                 for (int i = 0; i < points.Count; i++)
@@ -100,14 +87,9 @@ namespace OfficeCreator.Commands
                 }
 
                 t.Commit();
+
             }
-
-            return Result.Succeeded;
-        }
-
-        Result OnStartup(UIControlledApplication application)
-        {
-            throw new NotImplementedException();
         }
     }
 }
+
