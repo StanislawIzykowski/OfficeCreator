@@ -36,7 +36,10 @@ namespace OfficeCreator.Commands
                 //column point list
                 IList<IList<XYZ>> points = new List<IList<XYZ>>();
 
-                int module = 6;
+                MainViewModel viewModel = (MainViewModel)oCWindow.DataContext;
+
+                
+                int module = viewModel.Value;
                 //creating list of points
                 for (int i = 0; i < 100; i += 10)
                 {

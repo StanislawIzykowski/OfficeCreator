@@ -10,7 +10,7 @@
         <Button
             Width="50"
             Content="Osie"
-            Command="{Binding CreateGridsCommand }" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
+            Command="{Binding Value , NotifyOnSourceUpdated=True}" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
             />
 
         <TextBox Name="NumberTextBox"
@@ -22,5 +22,8 @@
 				 VerticalAlignment="Top" 
 				 TextChanged="NumberTextBox_TextChanged"
 				 />
+        <Button Content="Generate" 
+                Command="{Binding GenerateCommand}"
+                HorizontalAlignment="Left" Margin="759,387,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
