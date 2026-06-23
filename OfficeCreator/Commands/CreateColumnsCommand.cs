@@ -12,8 +12,14 @@ namespace OfficeCreator.Commands
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class CreateColumnsCommand : IExternalCommand
-    {
+    public class CreateColumnsCommand 
+    {     
+
+        public bool CanExecute(object? parameter)
+        {
+            throw new NotImplementedException();
+        }
+
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             UIApplication uiapp = commandData.Application;
@@ -96,6 +102,11 @@ namespace OfficeCreator.Commands
             }            
 
             return Result.Succeeded;
+        }
+
+        public void Execute(object? parameter)
+        {
+            throw new NotImplementedException();
         }
 
         Result OnStartup(UIControlledApplication application)
