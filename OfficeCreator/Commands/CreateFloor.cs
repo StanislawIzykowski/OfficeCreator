@@ -20,8 +20,7 @@ namespace OfficeCreator.Commands
             UIApplication uiapp = commandData.Application;
             Document doc = uiapp.ActiveUIDocument.Document;
 
-            OCWindow oCWindow = new OCWindow();
-
+            
             //column point list
             IList<IList<XYZ>> points = new List<IList<XYZ>>();
 
