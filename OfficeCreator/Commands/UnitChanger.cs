@@ -18,7 +18,7 @@ namespace OfficeCreator.Commands
         }
         
         public float MetToImp()
-        {
+        { 
             float imp = num * 3.281f;
 
             return imp;

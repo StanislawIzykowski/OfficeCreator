@@ -19,14 +19,69 @@ namespace OfficeCreator.ViewModel
             get => _moduleX; set { _moduleX = value; OnPropertyChanged(nameof(ModuleX)); }
         }
 
-        private int _value;
-        public int Value
+        private float _moduleY = 6;
+
+        public float ModuleY
         {
-            get => _value;
-            set { _value = value; OnPropertyChanged(nameof(Value)); }
+            get => _moduleY; set { _moduleY = value; OnPropertyChanged(nameof(ModuleY)); }
         }
 
-        //Vm doseant connect to View 
+        private float _distanceX = 6;
+
+        public float DistanceX
+        {
+            get => _distanceX; set { _distanceX = value; OnPropertyChanged(nameof(DistanceX)); }
+        }
+
+        private float _distanceY = 6;
+        public float DistanceY
+        {
+            get => _distanceY; set { _distanceY = value; OnPropertyChanged(nameof(DistanceY)); }
+        }
+
+        private bool _gridChecker = true;
+        public bool GridChecker
+        {
+            get => _gridChecker; set { _gridChecker = value; OnPropertyChanged(nameof(GridChecker)); }
+        }
+
+        private bool _wallChecker = true;
+        public bool WallChecker
+        {
+            get => _wallChecker; set { _wallChecker = value; OnPropertyChanged(nameof(WallChecker)); }
+        }
+
+        private bool _windowChecker = true;
+        public bool WindowChecker
+        {
+            get => _windowChecker; set { _windowChecker = value; OnPropertyChanged(nameof(WindowChecker)); }
+        }
+        private bool _doorChecker = true;
+        public bool DoorChecker
+        {
+            get => _doorChecker; set { _doorChecker = value; OnPropertyChanged(nameof(DoorChecker)); }
+        }
+
+        private bool _stairsChecker = true;
+        public bool StairsChecker
+        {
+            get => _stairsChecker; set { _stairsChecker = value; OnPropertyChanged(nameof(StairsChecker)); }
+        }
+
+        private bool _floorChecker = true;
+        public bool FloorChecker
+        {
+            get => _floorChecker; set { _floorChecker = value; OnPropertyChanged(nameof(FloorChecker)); }
+        }
+
+        private bool _columnChecker = true;
+        public bool ColumnChecker
+        {
+            get => _columnChecker; set { _columnChecker = value; OnPropertyChanged(nameof(ColumnChecker)); }
+        }
+
+
+        //Vm does not connect to View 
         //creating event to say i want to clsoe this window
         public event Action RequestClose;
         public ICommand GenerateCommand { get; }
@@ -68,23 +123,3 @@ namespace OfficeCreator.ViewModel
         }
     }
 }
-//private string _globalStatus = "default";
-
-//public string GlobalStatus
-//{
-//    get => _globalStatus;
-//    set { _globalStatus = value; OnPropertyChanged(nameof(GlobalStatus)); }
-//}
-
-
-//public ObservableCollection<SuperButtonObcject> _startFiniszCollection = new ObservableCollection<SuperButtonObcject>();
-
-//public ObservableCollection<SuperButtonObcject> StartFiniszCollection
-//{
-//    get { return _startFiniszCollection; }
-//    set
-//    {
-//        _startFiniszCollection = value;
-//        OnPropertyChanged();
-//    }
-//}

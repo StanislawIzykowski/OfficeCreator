@@ -5,25 +5,359 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OfficeCreator"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="850">
+        Title="Window1" Height="950" Width="468">
     <Grid>
-        <Button
-            Width="50"
-            Content="Osie"
-            Command="{Binding Value , NotifyOnSourceUpdated=True}" Margin="375,100,375,0" Height="25" VerticalAlignment="Top"
-            />
-
         <TextBox Name="NumberTextBox"
-				 DataContext="{Binding Value}"
+				 DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
 				 PreviewTextInput="NumberValidationTextBox" 
-				 Margin="332,156,339,0" 
+				 Margin="93,58,0,0" 
 				 TextWrapping="Wrap" 
 				 Text="" 
 				 VerticalAlignment="Top" 
-				 TextChanged="NumberTextBox_TextChanged"
+				 TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
 				 />
         <Button Content="Generate" 
-                Command="{Binding GenerateCommand}"
-                HorizontalAlignment="Left" Margin="759,387,0,0" VerticalAlignment="Top"/>
+                Command="{Binding GenerateCommand}" Margin="357,885,0,10" HorizontalAlignment="Left" Width="82"/>
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,94,0,0" 
+            TextWrapping="Wrap" 
+            Text="{Binding ModuleY, NotifyOnSourceUpdated=True}" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_GridAmountX"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,58,0,0" 
+            TextWrapping="Wrap" 
+            Text="{Binding DistanceX, NotifyOnSourceUpdated=True}" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,54,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_GridAmountY"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,94,0,0" 
+            TextWrapping="Wrap" 
+            Text="{Binding DistanceY, NotifyOnSourceUpdated=True}" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,90,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Grid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="32" Width="78"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj3"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,174,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj4"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,210,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj5"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,174,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,170,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj6"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,210,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,206,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Columns" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Height="32" Width="78"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj7"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,293,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj8"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,329,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj9"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,293,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,289,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj10"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,329,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,325,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Floor and Ceilings" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Height="32" Width="137"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj11"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,409,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,405,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj12"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,445,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,441,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj13"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,409,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,405,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj14"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,445,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,441,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Walls" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Height="32" Width="78"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj15"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,520,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,516,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj16"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,556,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,552,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj17"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,520,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,516,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj18"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,556,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,552,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Stairs" HorizontalAlignment="Left" Margin="10,480,0,0" VerticalAlignment="Top" Height="32" Width="78"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj19"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,640,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,636,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj20"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,676,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,672,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj21"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,640,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,636,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj22"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,676,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,672,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Doors" HorizontalAlignment="Left" Margin="10,592,0,0" VerticalAlignment="Top" Height="32" Width="137"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj23"
+            DataContext="{Binding ModuleX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,756,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module X" HorizontalAlignment="Left" Margin="10,752,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj24"
+            DataContext="{Binding ModuleY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="93,792,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="101"
+				 />
+
+        <Label Content="Module Y" HorizontalAlignment="Left" Margin="10,788,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj25"
+            DataContext="{Binding DistanceX, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,756,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł X" HorizontalAlignment="Left" Margin="234,752,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="NumberTextBox_Kopiuj26"
+            DataContext="{Binding DistanceY, NotifyOnSourceUpdated=True}"
+            PreviewTextInput="NumberValidationTextBox" 
+            Margin="349,792,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            TextChanged="NumberTextBox_TextChanged" HorizontalAlignment="Left" Width="100"
+				 />
+
+        <Label Content="Ilość przęseł Y" HorizontalAlignment="Left" Margin="234,788,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Windows" HorizontalAlignment="Left" Margin="10,714,0,0" VerticalAlignment="Top" Height="32" Width="78"/>
+
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using OfficeCreator.ViewModel;
 namespace OfficeCreator.Commands
 {
     [Transaction(TransactionMode.Manual)]
+    [Regeneration(RegenerationOption.Manual)]
     public class OfficeCreatorCommand : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -19,36 +20,39 @@ namespace OfficeCreator.Commands
             //creating viewmodel
             MainViewModel vm = new MainViewModel();
 
-            //creating window
+            //creating window and connecting data context
             OCWindow oCWindow = new OCWindow();
-
-            //connecting data context
             oCWindow.DataContext = vm;
 
+            //closing window
             vm.RequestClose += () => oCWindow.DialogResult = true;
+
+
             //oppening window
             if (oCWindow.ShowDialog() == true)
             {
-                //transactions
+                //declering app and doc
                 UIApplication uiapp = commandData.Application;
                 Document doc = uiapp.ActiveUIDocument.Document;
 
-                //column point list
+
+                // point list
                 IList<IList<XYZ>> points = new List<IList<XYZ>>();
 
-                MainViewModel viewModel = (MainViewModel)oCWindow.DataContext;
+                                
+                float moduleX = vm.ModuleX;
+                float moduleY = vm.ModuleY;
 
                 
-                int module = viewModel.Value;
                 //creating list of points
-                for (int i = 0; i < 100; i += 10)
+                for (int i = 0; i < vm.DistanceX; i++)
                 {
                     IList<XYZ> row = new List<XYZ>();
                     points.Add(row);
 
-                    for (int j = 0; j < 100; j += 10)
+                    for (int j = 0; j < vm.DistanceY; j++)
                     {
-                        XYZ point = new XYZ(j * module, i * module, 0);
+                        XYZ point = new XYZ(j * moduleX * 3.281f, i * moduleY * 3.281f, 0);
 
                         //adding point
                         row.Add(point);
@@ -67,104 +71,89 @@ namespace OfficeCreator.Commands
                 curves.Append(Line.CreateBound(points[points.Count - 1][points.Count - 1], points[points.Count - 1][0]));
                 curves.Append(Line.CreateBound(points[points.Count - 1][0], points[0][0]));
 
-                ElementId floorTypeId = Floor.GetDefaultFloorType(doc, true);
+
 
                 double elevation = 0;
                 ElementId levelId = Level.GetNearestLevelId(doc, elevation);
 
                 //family symbol columny
                 FamilySymbol symbol = new FilteredElementCollector(doc)
-                .OfClass(typeof(FamilySymbol))
-                .OfCategory(BuiltInCategory.OST_Columns) // architektoniczna
-                                                         // .OfCategory(BuiltInCategory.OST_StructuralColumns) // konstrukcyjna
-                .Cast<FamilySymbol>()
-                .FirstOrDefault();
+                    .OfClass(typeof(FamilySymbol))
+                    .OfCategory(BuiltInCategory.OST_Columns)
+                    .Cast<FamilySymbol>()
+                    .FirstOrDefault(); // .OfCategory(BuiltInCategory.OST_StructuralColumns) // konstrukcyjna
 
                 Level poziom = new FilteredElementCollector(doc)
                 .OfClass(typeof(Level))
                 .Cast<Level>()
                 .FirstOrDefault();
 
-                using (Transaction t = new Transaction(doc))
+                //creating grids transaction
+                if (vm.GridChecker)
                 {
-                    t.Start("Starting transaction");
-
-                    //Creating grid
-
-                    for (int i = 0; i < 10; i++)
+                    using (Transaction t = new Transaction(doc))
                     {
-                        Line gridLineX = Line.CreateBound(points[i][0], points[i][points.Count - 1]);
-                        Line gridLineY = Line.CreateBound(points[0][i], points[points.Count - 1][i]);
-                        Grid.Create(doc, gridLineX);
-                        Grid.Create(doc, gridLineY);
+                        t.Start("Starting transaction");
+
+                        //Creating grid
+                        GridService gridService = new GridService();
+
+                        gridService.Create(doc, points);
+
+                        t.Commit();                        
                     }
-
-                    t.Commit();
                 }
 
-
-                using (Transaction t = new Transaction(doc))
+                //Creating Columns transation
+                if (vm.ColumnChecker)
                 {
-                    t.Start("Starting transaction");
-
-                    //creating floor
-                    Floor.Create(doc, curveLooplist, floorTypeId, levelId);
-
-                    t.Commit();
-                }
-
-                using (Transaction t = new Transaction(doc))
-                {
-                    t.Start("Starting transaction");
-
-                    for (int i = 0; i < points.Count; i++)
+                    using (Transaction t = new Transaction(doc))
                     {
-                        for (int j = 0; j < points.Count; j++)
-                        {
-                            //creating columns on point list
-                            FamilyInstance column = doc.Create.NewFamilyInstance(points[i][j], symbol, poziom, 0);
-                        }
-                    }
+                        t.Start("Starting transaction");
+                        
+                        //Creating columns
+                        ColumnsService columnsService = new ColumnsService();
+                        columnsService.Create(doc, points);
 
-                    t.Commit();
+                        t.Commit();
+                        
+                    }
                 }
 
-                using (Transaction t = new Transaction(doc))
+                //Creating Floors transaction
+                if (vm.FloorChecker) 
                 {
-                    t.Start("Starting transaction");
-
-                    Line wallLine1 = Line.CreateBound(points[0][0], points[0][points.Count - 1]);
-                    Line wallLine2 = Line.CreateBound(points[0][points.Count - 1], points[points.Count - 1][points.Count - 1]);
-                    Line wallLine3 = Line.CreateBound(points[points.Count - 1][points.Count - 1], points[points.Count - 1][0]);
-                    Line wallLine4 = Line.CreateBound(points[points.Count - 1][0], points[0][0]);
-                    IList<Curve> curveListWall = new List<Curve>();
-                    curveListWall.Add(wallLine1);
-                    curveListWall.Add(wallLine2);
-                    curveListWall.Add(wallLine3);
-                    curveListWall.Add(wallLine4);
-
-
-                    WallType wallType = new FilteredElementCollector(doc)
-                        .OfClass(typeof(WallType))
-                        .Cast<WallType>()
-                        .FirstOrDefault();
-
-                    foreach (Curve curve in curveListWall)
+                    using (Transaction t = new Transaction(doc))
                     {
-                        Wall.Create(doc, curve, levelId, false);
+                        t.Start("Starting transaction");
+
+                        //creating floors
+                        FloorsService floorService = new FloorsService();
+                        floorService.Create(doc, points);
+
+                        t.Commit();
                     }
-
-
-                    t.Commit();
                 }
 
-                return Result.Succeeded;
+                //creating walls transaction
+                if (vm.WallChecker)
+                {
+                    using (Transaction t = new Transaction(doc))
+                    {
+                        t.Start("Starting transaction");
+
+                        //creating walls
+                        WallsService wallsService = new WallsService();
+                        wallsService.Create(doc, points, levelId);
+
+                        t.Commit();
+                    }
+                }
             }
             
-            TaskDialog.Show("debug", $"Value = {vm.Value}");
-            //collecting data context
-
-            //transactions
+            TaskDialog.Show("debug", $"Value = {vm.ModuleX}");
+            TaskDialog.Show("debug", $"Value = {vm.ModuleY}");
+                     
 
             return Result.Succeeded;
         }
