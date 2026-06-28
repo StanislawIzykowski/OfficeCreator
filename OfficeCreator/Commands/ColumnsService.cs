@@ -15,6 +15,20 @@ namespace OfficeCreator.Commands
     {     
         public void Create(Document doc, IList<IList<XYZ>> points)
         {
+            int rowCount = points.Count;      // Y
+            int colCount = points[0].Count;   // X
+
+            double elev0 = 0.0;
+            double elev4 = 4.0 * 3.28084;
+            double elev8 = 8.0 * 3.28084;
+
+            // getting lvl id
+            ElementId levelId0 = Level.GetNearestLevelId(doc, elev0);
+            ElementId levelId4 = Level.GetNearestLevelId(doc, elev4);
+
+            //creating list to cycle
+            List<ElementId> levelIds = new List<ElementId> { levelId0, levelId4 };
+
             ElementId floorTypeId = Floor.GetDefaultFloorType(doc, true);
 
             double elevation = 0;
@@ -33,16 +47,20 @@ namespace OfficeCreator.Commands
             .Cast<Level>()
             .FirstOrDefault();
 
+            symbol.Activate();
 
-
-            for (int i = 0; i < points.Count; i++)
+            foreach( ElementId lvlId in levelIds)
             {
-                for (int j = 0; j < points.Count; j++)
+                Level currentLevel = doc.GetElement(lvlId) as Level;
+                for (int i = 0; i < rowCount; i++)
                 {
-                    symbol.Activate();
-                    //creating columns on point list
-                    FamilyInstance columnGF = doc.Create.NewFamilyInstance(points[i][j], symbol, groundLevel, 0);
-                    
+                    for (int j = 0; j < colCount; j++)
+                    {
+
+                        //creating columns on point list
+                        FamilyInstance columnGF = doc.Create.NewFamilyInstance(points[i][j], symbol, currentLevel, 0);
+
+                    }
                 }
             }
      

@@ -10,101 +10,77 @@ using System.Windows.Media;
 
 namespace OfficeCreator.ViewModel
 {
-       public class MainViewModel : ViewModelBase
+    public class TileViewModel : ViewModelBase
     {
-        private float _moduleX = 6;
+        public string Name { get; set; }
 
-        public float ModuleX
+        private bool _isEnabled = true;
+        public bool IsEnabled
         {
-            get => _moduleX; set { _moduleX = value; OnPropertyChanged(nameof(ModuleX)); }
+            get => _isEnabled;
+            set { _isEnabled = value; OnPropertyChanged(nameof(IsEnabled)); }
         }
+    }
 
-        private float _moduleY = 6;
+    //gridbase inherit after titleviemodel
+    public class GridBasedTileViewModel : TileViewModel
+    {
+        private double _moduleX;
+        public double ModuleX { get => _moduleX; set { _moduleX = value; OnPropertyChanged(); } }
 
-        public float ModuleY
-        {
-            get => _moduleY; set { _moduleY = value; OnPropertyChanged(nameof(ModuleY)); }
-        }
+        private double _moduleY;
+        public double ModuleY { get => _moduleY; set { _moduleY = value; OnPropertyChanged(); } }
 
-        private float _distanceX = 6;
+        private double _distanceX;
+        public double DistanceX { get => _distanceX; set { _distanceX = value; OnPropertyChanged(); } }
 
-        public float DistanceX
-        {
-            get => _distanceX; set { _distanceX = value; OnPropertyChanged(nameof(DistanceX)); }
-        }
+        private double _distanceY;
+        public double DistanceY { get => _distanceY; set { _distanceY = value; OnPropertyChanged(); } }
+    }
+    public class StairsTileViewModel : TileViewModel
+    {
+        private int _numberOfTreads;
+        public int NumberOfTreads { get => _numberOfTreads; set { _numberOfTreads = value; OnPropertyChanged(); } }
 
-        private float _distanceY = 6;
-        public float DistanceY
-        {
-            get => _distanceY; set { _distanceY = value; OnPropertyChanged(nameof(DistanceY)); }
-        }
+        private double _stepHeight;
+        public double StepHeight { get => _stepHeight; set { _stepHeight = value; OnPropertyChanged(); } }
 
-        private bool _gridChecker = true;
-        public bool GridChecker
-        {
-            get => _gridChecker; set { _gridChecker = value; OnPropertyChanged(nameof(GridChecker)); }
-        }
+        private double _width;
+        public double Width { get => _width; set { _width = value; OnPropertyChanged(); } }
+    }
+    public class WallBasedTileViewModel : TileViewModel
+    {
+        
+    }
+    public class MainViewModel : ViewModelBase
+    {
+        public GridBasedTileViewModel GridTile { get; set; }
+        public GridBasedTileViewModel WallsTile { get; set; }
+        public GridBasedTileViewModel FloorsTile { get; set; }
+        public GridBasedTileViewModel ColumnTile { get; set; }
+        public StairsTileViewModel StairsTile { get; set; }
+        public WallBasedTileViewModel WallBasedTitle { get; set; }
 
-        private bool _wallChecker = true;
-        public bool WallChecker
-        {
-            get => _wallChecker; set { _wallChecker = value; OnPropertyChanged(nameof(WallChecker)); }
-        }
-
-        private bool _windowChecker = true;
-        public bool WindowChecker
-        {
-            get => _windowChecker; set { _windowChecker = value; OnPropertyChanged(nameof(WindowChecker)); }
-        }
-        private bool _doorChecker = true;
-        public bool DoorChecker
-        {
-            get => _doorChecker; set { _doorChecker = value; OnPropertyChanged(nameof(DoorChecker)); }
-        }
-
-        private bool _stairsChecker = true;
-        public bool StairsChecker
-        {
-            get => _stairsChecker; set { _stairsChecker = value; OnPropertyChanged(nameof(StairsChecker)); }
-        }
-
-        private bool _floorChecker = true;
-        public bool FloorChecker
-        {
-            get => _floorChecker; set { _floorChecker = value; OnPropertyChanged(nameof(FloorChecker)); }
-        }
-
-        private bool _columnChecker = true;
-        public bool ColumnChecker
-        {
-            get => _columnChecker; set { _columnChecker = value; OnPropertyChanged(nameof(ColumnChecker)); }
-        }
-
-
-        //Vm does not connect to View 
-        //creating event to say i want to clsoe this window
+        //closing window part
         public event Action RequestClose;
         public ICommand GenerateCommand { get; }
-
         public void OnGenerate(object arg) => RequestClose?.Invoke();
-
 
         public MainViewModel()
         {
+            GridTile = new GridBasedTileViewModel() { Name = "Grid" };
+            WallsTile = new GridBasedTileViewModel() { Name = "Walls"};
+            ColumnTile = new GridBasedTileViewModel() { Name = "Columns" };
+            FloorsTile = new GridBasedTileViewModel() { Name = "Floors" };
+            StairsTile = new StairsTileViewModel() { Name = "Stairs"};
+            WallBasedTitle = new WallBasedTileViewModel() { Name = "WallBased"};
+
             GenerateCommand = new RelayCommand(OnGenerate);
         }
-
         public class RelayCommand : ICommand
         {
             private readonly Action<object> _execute; // <== zamiast Action<object>
             private readonly Func<bool> _canExecute;
-
-
-            // konstruktor poznajemy po tym że jest ot funkcja publiczna której nazwa jest taka sama jak nazwa klasy
-            // tak samo tez tworzmy konstruktor
-
-            // jest to odpowiednik funkcji innit w pythonie, czyli inicjaslizuje obiekt - pozwala na wykonanie dodatkowych operacji
-            // któe chcesz żeby nastąpiły w momencie tworzenia obiektu, np wykonanmie jakiejs funkji ktora wypełni pola jakiejs lsity albo matrycy
 
             public RelayCommand(Action<object> execute, Func<bool> canExecute = null)
             {
@@ -121,5 +97,5 @@ namespace OfficeCreator.ViewModel
                 remove => CommandManager.RequerySuggested -= value;
             }
         }
-    }
+    } 
 }

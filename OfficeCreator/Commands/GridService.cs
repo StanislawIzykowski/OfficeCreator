@@ -12,10 +12,7 @@ namespace OfficeCreator.Commands
             int rowCount = points.Count;
             int colCount = points[0].Count;
 
-
-            //creating columns on point list X axis
             //conntecting first with last point
-
             for (int i = 0; i < rowCount; i++)
             {
                 XYZ startPoint = points[i][0];
@@ -25,12 +22,11 @@ namespace OfficeCreator.Commands
                 Grid.Create(doc, gridLineX);
             }
 
-            //creating columns on point list Y axis
             //conntecting first with last point
             for (int j = 0; j < colCount; j++)
             {
                 XYZ startPoint = points[0][j];
-                XYZ endPoint = points[colCount - 1][j];
+                XYZ endPoint = points[rowCount - 1][j];
 
                 Line gridLineY = Line.CreateBound(startPoint, endPoint);
                 Grid.Create(doc, gridLineY);
