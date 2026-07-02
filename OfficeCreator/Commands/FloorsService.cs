@@ -13,18 +13,22 @@ namespace OfficeCreator.Commands
         public void Create(Document doc, IList<IList<XYZ>> points)
         {
 
-            int rowCount = points.Count;      // Y
-            int colCount = points[0].Count;   // X
+            int rowCount = points.Count;      
+            int colCount = points[0].Count;
+            double curveLoopOffset = 1.295932;
+
             //curveloop object
             CurveLoop curves = new CurveLoop();
 
-            IList<CurveLoop> curveLooplist = new List<CurveLoop>() { curves };
-
             //creating lines based on points, closed loop!
-            curves.Append(Line.CreateBound(points[0][0], points[0][colCount - 1]));                         
-            curves.Append(Line.CreateBound(points[0][colCount - 1], points[rowCount - 1][colCount - 1])); 
-            curves.Append(Line.CreateBound(points[rowCount - 1][colCount - 1], points[rowCount - 1][0])); 
+            //obwód
+            curves.Append(Line.CreateBound(points[0][0], points[0][colCount - 1]));
+            curves.Append(Line.CreateBound(points[0][colCount - 1], points[rowCount - 1][colCount - 1]));
+            curves.Append(Line.CreateBound(points[rowCount - 1][colCount - 1], points[rowCount - 1][0]));
             curves.Append(Line.CreateBound(points[rowCount - 1][0], points[0][0]));
+
+            CurveLoop offsetPerimeter = CurveLoop.CreateViaOffset(curves, curveLoopOffset, XYZ.BasisZ);
+            IList<CurveLoop> curveLoopList = new List<CurveLoop>() { offsetPerimeter };
 
             ElementId floorTypeId = Floor.GetDefaultFloorType(doc, true);
 
@@ -38,9 +42,9 @@ namespace OfficeCreator.Commands
             ElementId levelId8 = Level.GetNearestLevelId(doc, elev8);
 
             // Tworzymy 3 podłogi na 3 poziomach
-            if (levelId0 != null) Floor.Create(doc, curveLooplist, floorTypeId, levelId0);
-            if (levelId4 != null) Floor.Create(doc, curveLooplist, floorTypeId, levelId4);
-            if (levelId8 != null) Floor.Create(doc, curveLooplist, floorTypeId, levelId8);
+            if (levelId0 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId0);
+            if (levelId4 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId4);
+            if (levelId8 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId8);
         }                    
     }
 }

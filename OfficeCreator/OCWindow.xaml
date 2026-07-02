@@ -11,8 +11,7 @@
 
     <Window.Resources>
 
-        <!-- 1. SZABLON DLA OSI, SŁUPÓW, STROPÓW, ŚCIAN -->
-        <!-- Zauważ zmianę na GridBasedTileViewModel! -->
+        <!-- grids, clumns, floors, walls -->
         <DataTemplate DataType="{x:Type viewModel:GridBasedTileViewModel}">
             <Border BorderBrush="LightGray" BorderThickness="1" Margin="2" Padding="5" CornerRadius="3">
                 <Grid>
@@ -43,7 +42,7 @@
             </Border>
         </DataTemplate>
 
-        <!-- 2. SZABLON DLA SCHODÓW (inne pola!) -->
+        <!-- template for stairs -->
         <DataTemplate DataType="{x:Type viewModel:StairsTileViewModel}">
             <Border BorderBrush="LightGreen" BorderThickness="1" Margin="2" Padding="5" CornerRadius="3">
                 <Grid>
@@ -63,7 +62,7 @@
                         <TextBox Text="{Binding StepHeight, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,10,0" PreviewTextInput="NumberValidationTextBox"/>
 
                         <TextBlock Text="Szerokość:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                        <TextBox Text="{Binding Width, UpdateSourceTrigger=PropertyChanged}" Width="50" PreviewTextInput="NumberValidationTextBox"/>
+                        <TextBox Text="{Binding RunWidth, UpdateSourceTrigger=PropertyChanged}" Width="50" PreviewTextInput="NumberValidationTextBox"/>
                     </StackPanel>
 
                     <CheckBox IsChecked="{Binding IsEnabled}" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -71,7 +70,7 @@
             </Border>
         </DataTemplate>
 
-        <!-- 3. SZABLON DLA WALL BASED (póki co pusty, tylko nazwa i checkbox) -->
+        <!-- windows and doors -->
         <DataTemplate DataType="{x:Type viewModel:WallBasedTileViewModel}">
             <Border BorderBrush="LightCoral" BorderThickness="1" Margin="2" Padding="5" CornerRadius="3">
                 <Grid>
@@ -88,9 +87,49 @@
             </Border>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:DropboxTileViewModel}">
+            <Border BorderBrush="LightGray" BorderThickness="1" Margin="2" Padding="5" CornerRadius="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="{Binding Name}" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" IsEnabled="{Binding IsEnabled}">
+
+                        <TextBlock Text="Słup:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding ColumnsList}" 
+                          DisplayMemberPath="Key" 
+                          SelectedValuePath="Value" 
+                          SelectedValue="{Binding PickedColumnID, UpdateSourceTrigger=PropertyChanged}" 
+                          Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                        <TextBlock Text="Ściana:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding WallsList}" 
+                          DisplayMemberPath="Key" 
+                          SelectedValuePath="Value" 
+                          SelectedValue="{Binding PickedWallID, UpdateSourceTrigger=PropertyChanged}" 
+                          Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                        <TextBlock Text="Strop:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding FloorsList}" 
+                          DisplayMemberPath="Key" 
+                          SelectedValuePath="Value" 
+                          SelectedValue="{Binding PickedFloorID, UpdateSourceTrigger=PropertyChanged}" 
+                          Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                    </StackPanel>
+
+                    <CheckBox IsChecked="{Binding IsEnabled}" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </Window.Resources>
 
-    <!-- GŁÓWNY UKŁAD OKNA -->
+    <!-- main window -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -102,23 +141,22 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEWA KOLUMNA -->
+        <!-- left column -->
         <StackPanel Grid.Row="0" Grid.Column="0">
             <ContentControl Content="{Binding GridTile}"/>
-            <ContentControl Content="{Binding ColumnTile}"/>
-            <!-- Zmieniono z ColumnsTile na ColumnTile -->
+            <ContentControl Content="{Binding ColumnsTile}"/>
             <ContentControl Content="{Binding FloorsTile}"/>
             <ContentControl Content="{Binding WallsTile}"/>
         </StackPanel>
 
-        <!-- PRAWA KOLUMNA -->
+        <!-- right column -->
         <StackPanel Grid.Row="0" Grid.Column="2">
             <ContentControl Content="{Binding StairsTile}"/>
             <ContentControl Content="{Binding WallBasedTitle}"/>
         </StackPanel>
 
-        <!-- PRZYCISK GENERUJ -->
-        <Button Content="GENERUJ" 
+        <!-- generate -->
+        <Button Content="GENERATE" 
                 Command="{Binding GenerateCommand}" 
                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
                 Height="40" Margin="0,10,0,0" 

@@ -20,7 +20,6 @@ namespace OfficeCreator.Commands
 
             double elev0 = 0.0;
             double elev4 = 4.0 * 3.28084;
-            double elev8 = 8.0 * 3.28084;
 
             // getting lvl id
             ElementId levelId0 = Level.GetNearestLevelId(doc, elev0);

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Architecture;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OfficeCreator.Commands
 {
-    class StairsService
+    public class StairsService
     {
+        public void Create(Document doc, IList<IList<XYZ>> points, ElementId newStairsId, double moduleX, double moduleY)
+        {
+            
+        }
     }
 }

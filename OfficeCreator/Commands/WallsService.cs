@@ -18,21 +18,16 @@ namespace OfficeCreator.Commands
             double elevation = 0;
             ElementId levelId = Level.GetNearestLevelId(doc, elevation);
 
-            double height = 31.496063;
+            double height = 27.06693;
+            double offset = 0;
+            double curveLoopOffset = 1.295932;
 
-            double offset = 9.84251969;
-
-
-            
-            Line wallLine1 = Line.CreateBound(points[0][0], points[0][colCount - 1]);
-            Line wallLine2 = Line.CreateBound(points[0][colCount - 1], points[rowCount - 1][colCount - 1]);
-            Line wallLine3 = Line.CreateBound(points[rowCount - 1][colCount - 1], points[rowCount - 1][0]);
-            Line wallLine4 = Line.CreateBound(points[rowCount - 1][0], points[0][0]);
-
-            IList<Curve> curveListWall = new List<Curve>()
-            {
-                wallLine1, wallLine2, wallLine3, wallLine4
-            };
+            //obwód
+            CurveLoop perimeter = new CurveLoop();
+            perimeter.Append(Line.CreateBound(points[0][0], points[0][colCount - 1]));
+            perimeter.Append(Line.CreateBound(points[0][colCount - 1], points[rowCount - 1][colCount - 1]));
+            perimeter.Append(Line.CreateBound(points[rowCount - 1][colCount - 1], points[rowCount - 1][0]));
+            perimeter.Append(Line.CreateBound(points[rowCount - 1][0], points[0][0]));
 
             WallType wallType = new FilteredElementCollector(doc)
                 .OfClass(typeof(WallType))
@@ -40,9 +35,12 @@ namespace OfficeCreator.Commands
                 .Where(w => w.Kind != WallKind.Curtain)
                 .FirstOrDefault();
 
+            //new loop with offset
+            CurveLoop offsetPerimeter = CurveLoop.CreateViaOffset(perimeter, curveLoopOffset, XYZ.BasisZ);
+
             ElementId wallTypeId = wallType.Id;
 
-            foreach (Curve curve in curveListWall)
+            foreach (Curve curve in offsetPerimeter)
             {
                 Wall.Create(doc, curve, wallTypeId, levelId, height, offset, false, false);
             }

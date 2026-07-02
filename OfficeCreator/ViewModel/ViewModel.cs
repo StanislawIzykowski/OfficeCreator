@@ -1,4 +1,5 @@
-﻿using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,25 +40,40 @@ namespace OfficeCreator.ViewModel
     }
     public class StairsTileViewModel : TileViewModel
     {
-        private int _numberOfTreads;
-        public int NumberOfTreads { get => _numberOfTreads; set { _numberOfTreads = value; OnPropertyChanged(); } }
 
-        private double _stepHeight;
-        public double StepHeight { get => _stepHeight; set { _stepHeight = value; OnPropertyChanged(); } }
-
-        private double _width;
-        public double Width { get => _width; set { _width = value; OnPropertyChanged(); } }
     }
     public class WallBasedTileViewModel : TileViewModel
     {
         
     }
+
+    public class DropboxTileViewModel : TileViewModel
+    {
+        private Dictionary<string, ElementId> _columnsList;
+        public Dictionary<string, ElementId> ColumnsList{ get => _columnsList; set { _columnsList = value; OnPropertyChanged(); } }
+
+        private Dictionary<string, ElementId> _wallsList;
+        public Dictionary<string, ElementId> WallsList { get => _wallsList; set { _wallsList = value; OnPropertyChanged(); } }
+
+        private Dictionary<string, ElementId> _floorsList;
+        public Dictionary<string, ElementId> FloorsList { get => _floorsList; set { _floorsList = value; OnPropertyChanged(); } }
+
+        private ElementId _pickedColumnId;
+        public ElementId PickedColumnId { get => _pickedColumnId; set { _pickedColumnId = value; OnPropertyChanged(); } }
+
+        private ElementId _pickedWallId;
+        public ElementId PickedWallId { get => _pickedWallId; set { _pickedWallId = value; OnPropertyChanged(); } }
+
+        private ElementId _pickedFloorId;
+        public ElementId PickedFloorId { get => _pickedFloorId; set { _pickedFloorId = value; OnPropertyChanged(); } }
+
+    }
     public class MainViewModel : ViewModelBase
     {
         public GridBasedTileViewModel GridTile { get; set; }
-        public GridBasedTileViewModel WallsTile { get; set; }
-        public GridBasedTileViewModel FloorsTile { get; set; }
-        public GridBasedTileViewModel ColumnTile { get; set; }
+        public DropboxTileViewModel ColumnsTile { get; set; }
+        public DropboxTileViewModel WallsTile { get; set; }
+        public DropboxTileViewModel FloorsTile { get; set; }
         public StairsTileViewModel StairsTile { get; set; }
         public WallBasedTileViewModel WallBasedTitle { get; set; }
 
@@ -69,9 +85,9 @@ namespace OfficeCreator.ViewModel
         public MainViewModel()
         {
             GridTile = new GridBasedTileViewModel() { Name = "Grid" };
-            WallsTile = new GridBasedTileViewModel() { Name = "Walls"};
-            ColumnTile = new GridBasedTileViewModel() { Name = "Columns" };
-            FloorsTile = new GridBasedTileViewModel() { Name = "Floors" };
+            WallsTile = new DropboxTileViewModel() { Name = "Walls"};
+            ColumnsTile = new DropboxTileViewModel() { Name = "Columns"};
+            FloorsTile = new DropboxTileViewModel() { Name = "Floors" };
             StairsTile = new StairsTileViewModel() { Name = "Stairs"};
             WallBasedTitle = new WallBasedTileViewModel() { Name = "WallBased"};
 
