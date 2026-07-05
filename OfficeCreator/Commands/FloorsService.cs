@@ -10,7 +10,7 @@ namespace OfficeCreator.Commands
 {
     internal class FloorsService
     {
-        public void Create(Document doc, IList<IList<XYZ>> points)
+        public void Create(Document doc, IList<IList<XYZ>> points, ElementId groundFloorId, ElementId firstFloorId, ElementId roofId)
         {
 
             int rowCount = points.Count;      
@@ -33,8 +33,8 @@ namespace OfficeCreator.Commands
             ElementId floorTypeId = Floor.GetDefaultFloorType(doc, true);
 
             double elev0 = 0.0;
-            double elev4 = 4.0 * 3.28084;
-            double elev8 = 8.0 * 3.28084;
+            double elev4 = UnitUtils.ConvertToInternalUnits( 4, UnitTypeId.Meters);
+            double elev8 = UnitUtils.ConvertToInternalUnits( 8, UnitTypeId.Meters);
 
             // Szukamy ID poziomów w dokumencie
             ElementId levelId0 = Level.GetNearestLevelId(doc, elev0);
@@ -42,9 +42,9 @@ namespace OfficeCreator.Commands
             ElementId levelId8 = Level.GetNearestLevelId(doc, elev8);
 
             // Tworzymy 3 podłogi na 3 poziomach
-            if (levelId0 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId0);
-            if (levelId4 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId4);
-            if (levelId8 != null) Floor.Create(doc, curveLoopList, floorTypeId, levelId8);
+            if (levelId0 != null) Floor.Create(doc, curveLoopList, groundFloorId, levelId0);
+            if (levelId4 != null) Floor.Create(doc, curveLoopList, firstFloorId, levelId4);
+            if (levelId8 != null) Floor.Create(doc, curveLoopList, roofId, levelId8);
         }                    
     }
 }

@@ -44,28 +44,38 @@ namespace OfficeCreator.ViewModel
     }
     public class WallBasedTileViewModel : TileViewModel
     {
-        
+        private Dictionary<string, ElementId> _listOne;
+        public Dictionary<string, ElementId> ListOne { get => _listOne; set { _listOne = value; OnPropertyChanged(); } }
+
+        private ElementId _pickedElemIdFromListOne;
+        public ElementId PickedElemIdFromListOne { get => _pickedElemIdFromListOne; set { _pickedElemIdFromListOne = value; OnPropertyChanged(); } }
+
+        private double _wallSideX;
+        public double WallSideX { get => _wallSideX; set { _wallSideX = value; OnPropertyChanged(); } }
+
+        private double _wallSideY;
+        public double WallSideY { get => _wallSideY; set { _wallSideY = value; OnPropertyChanged(); } }
     }
 
     public class DropboxTileViewModel : TileViewModel
     {
-        private Dictionary<string, ElementId> _columnsList;
-        public Dictionary<string, ElementId> ColumnsList{ get => _columnsList; set { _columnsList = value; OnPropertyChanged(); } }
+        private Dictionary<string, ElementId> _listOne;
+        public Dictionary<string, ElementId> ListOne{ get => _listOne; set { _listOne = value; OnPropertyChanged(); } }
 
-        private Dictionary<string, ElementId> _wallsList;
-        public Dictionary<string, ElementId> WallsList { get => _wallsList; set { _wallsList = value; OnPropertyChanged(); } }
+        private Dictionary<string, ElementId> _listTwo;
+        public Dictionary<string, ElementId> ListTwo{ get => _listTwo; set { _listTwo = value; OnPropertyChanged(); } }
 
-        private Dictionary<string, ElementId> _floorsList;
-        public Dictionary<string, ElementId> FloorsList { get => _floorsList; set { _floorsList = value; OnPropertyChanged(); } }
+        private Dictionary<string, ElementId> _listThree;
+        public Dictionary<string, ElementId> ListThree { get => _listThree; set { _listThree = value; OnPropertyChanged(); } }
 
-        private ElementId _pickedColumnId;
-        public ElementId PickedColumnId { get => _pickedColumnId; set { _pickedColumnId = value; OnPropertyChanged(); } }
+        private ElementId _pickedElemIdFromListOne;
+        public ElementId PickedElemIdFromListOne { get => _pickedElemIdFromListOne; set { _pickedElemIdFromListOne = value; OnPropertyChanged(); } }
 
-        private ElementId _pickedWallId;
-        public ElementId PickedWallId { get => _pickedWallId; set { _pickedWallId = value; OnPropertyChanged(); } }
+        private ElementId _pickedElemIdFromListTwo;
+        public ElementId PickedElemIdFromListTwo { get => _pickedElemIdFromListTwo; set { _pickedElemIdFromListTwo = value; OnPropertyChanged(); } }
 
-        private ElementId _pickedFloorId;
-        public ElementId PickedFloorId { get => _pickedFloorId; set { _pickedFloorId = value; OnPropertyChanged(); } }
+        private ElementId _pickedElemIdFromListThree;
+        public ElementId PickedElemIdFromListThree { get => _pickedElemIdFromListThree; set { _pickedElemIdFromListThree = value; OnPropertyChanged(); } }
 
     }
     public class MainViewModel : ViewModelBase
@@ -75,7 +85,8 @@ namespace OfficeCreator.ViewModel
         public DropboxTileViewModel WallsTile { get; set; }
         public DropboxTileViewModel FloorsTile { get; set; }
         public StairsTileViewModel StairsTile { get; set; }
-        public WallBasedTileViewModel WallBasedTitle { get; set; }
+        public WallBasedTileViewModel WindowTile { get; set; }
+        public WallBasedTileViewModel DoorTile { get; set; }
 
         //closing window part
         public event Action RequestClose;
@@ -89,7 +100,8 @@ namespace OfficeCreator.ViewModel
             ColumnsTile = new DropboxTileViewModel() { Name = "Columns"};
             FloorsTile = new DropboxTileViewModel() { Name = "Floors" };
             StairsTile = new StairsTileViewModel() { Name = "Stairs"};
-            WallBasedTitle = new WallBasedTileViewModel() { Name = "WallBased"};
+            WindowTile = new WallBasedTileViewModel() { Name = "Window"};
+            DoorTile = new WallBasedTileViewModel() { Name = "Door"};
 
             GenerateCommand = new RelayCommand(OnGenerate);
         }

@@ -81,7 +81,18 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="{Binding Name}" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Text="(Brak parametrów)" VerticalAlignment="Center" Foreground="Gray" IsEnabled="{Binding IsEnabled}"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" IsEnabled="{Binding IsEnabled}">
+
+                        <TextBlock Text="First Elem:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding ListOne}" 
+                          DisplayMemberPath="Key" 
+                          SelectedValuePath="Value" 
+                          SelectedValue="{Binding PickedElemIdFromListOne, UpdateSourceTrigger=PropertyChanged}" 
+                          Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                    </StackPanel>
+
                     <CheckBox IsChecked="{Binding IsEnabled}" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 </Grid>
             </Border>
@@ -100,25 +111,25 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" IsEnabled="{Binding IsEnabled}">
 
-                        <TextBlock Text="Słup:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                        <ComboBox ItemsSource="{Binding ColumnsList}" 
+                        <TextBlock Text="First Elem:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding ListOne}" 
                           DisplayMemberPath="Key" 
                           SelectedValuePath="Value" 
-                          SelectedValue="{Binding PickedColumnID, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedValue="{Binding PickedElemIdFromListOne, UpdateSourceTrigger=PropertyChanged}" 
                           Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
-                        <TextBlock Text="Ściana:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                        <ComboBox ItemsSource="{Binding WallsList}" 
+                        <TextBlock Text="Second Elem:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding ListTwo}" 
                           DisplayMemberPath="Key" 
                           SelectedValuePath="Value" 
-                          SelectedValue="{Binding PickedWallID, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedValue="{Binding PickedElemIdFromListTwo, UpdateSourceTrigger=PropertyChanged}" 
                           Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
-                        <TextBlock Text="Strop:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                        <ComboBox ItemsSource="{Binding FloorsList}" 
+                        <TextBlock Text="Third Elem:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <ComboBox ItemsSource="{Binding ListThree}" 
                           DisplayMemberPath="Key" 
                           SelectedValuePath="Value" 
-                          SelectedValue="{Binding PickedFloorID, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedValue="{Binding PickedElemIdFromListThree, UpdateSourceTrigger=PropertyChanged}" 
                           Width="120" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
                     </StackPanel>
@@ -152,7 +163,8 @@
         <!-- right column -->
         <StackPanel Grid.Row="0" Grid.Column="2">
             <ContentControl Content="{Binding StairsTile}"/>
-            <ContentControl Content="{Binding WallBasedTitle}"/>
+            <ContentControl Content="{Binding WindowTile}"/>
+            <ContentControl Content="{Binding DoorTile}"/>
         </StackPanel>
 
         <!-- generate -->

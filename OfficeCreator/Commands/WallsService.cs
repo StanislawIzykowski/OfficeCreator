@@ -1,15 +1,10 @@
 ﻿using Autodesk.Revit.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OfficeCreator.Commands
 {
     public class WallsService
     {
-        public void Create(Document doc, IList<IList<XYZ>> points)
+        public IList<Wall> Create(Document doc, IList<IList<XYZ>> points, ElementId firstWallId)
         {
 
             int rowCount = points.Count;      
@@ -29,21 +24,23 @@ namespace OfficeCreator.Commands
             perimeter.Append(Line.CreateBound(points[rowCount - 1][colCount - 1], points[rowCount - 1][0]));
             perimeter.Append(Line.CreateBound(points[rowCount - 1][0], points[0][0]));
 
-            WallType wallType = new FilteredElementCollector(doc)
-                .OfClass(typeof(WallType))
-                .Cast<WallType>()
-                .Where(w => w.Kind != WallKind.Curtain)
-                .FirstOrDefault();
+            //ciekawe, collecting element form id and casting to something else
+            //WallType wallType = doc.GetElement( firstWallId ) as WallType;
 
             //new loop with offset
             CurveLoop offsetPerimeter = CurveLoop.CreateViaOffset(perimeter, curveLoopOffset, XYZ.BasisZ);
 
-            ElementId wallTypeId = wallType.Id;
+            //ElementId wallTypeId = wallType.Id;
+
+            IList<Wall> createdWalls = new List<Wall>();
 
             foreach (Curve curve in offsetPerimeter)
             {
-                Wall.Create(doc, curve, wallTypeId, levelId, height, offset, false, false);
+                Wall wall = Wall.Create(doc, curve, firstWallId, levelId, height, offset, false, false);
+                createdWalls.Add(wall);
             }
+
+            return createdWalls;
         }
     }
 }
